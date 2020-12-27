@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -124,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "angular-js-datatable-with-spring-boot-api"
+  "defaultProject": "angular-js-datatable-with-spring-boot-api",
+  "cli": {
+    "analytics": false
+  }
 }
