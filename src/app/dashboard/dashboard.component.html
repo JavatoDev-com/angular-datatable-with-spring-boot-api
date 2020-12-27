@@ -3,17 +3,8 @@
         <div class="col-md-12">
             <h1>Datatable with Ag-Grid + Angular With Spring Boot REST API</h1>
             <ag-grid-angular #agGrid style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="rowData"
-            id="myGrid"
-                [columnDefs]="columnDefs"
-                [pagination]="true"
-                [paginationPageSize]="paginationPageSize"
-                [animateRows]="true"
-                [rowGroupPanelShow]="true"
-                [enableRangeSelection]="true"
-                [pivotPanelShow]="true"
-                (gridReady)="onGridReady($event)"
-                [rowModelType]="rowModelType"
-                (paginationChanged)="onPaginationChanged($event)">
+                id="myGrid" [columnDefs]="columnDefs" [pagination]="true" (gridReady)="onGridReady($event)"
+                [rowModelType]="rowModelType" [paginationPageSize]="defaultPageSize" [cacheBlockSize]="defaultPageSize">
             </ag-grid-angular>
         </div>
     </div>

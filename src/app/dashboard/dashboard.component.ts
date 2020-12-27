@@ -11,16 +11,21 @@ export class DashboardComponent implements OnInit {
 
   private gridApi: any;
   private gridColumnApi: any;
+  
 
   columnDefs = [
-    { field: 'name', sortable: true, filter: true },
-    { field: 'isbn', sortable: true, filter: true }
+    { field: 'id', sortable: true, filter: true, flex: 1, minWidth: 100},
+    { field: 'name', sortable: true, filter: true , flex: 1, minWidth: 100},
+    { field: 'isbn', sortable: true, filter: true , flex: 1, minWidth: 100},
+    { field: 'imageUrl', width: '500' , flex: 1, minWidth: 100}
   ];
 
   rowData = [];
-  paginationPageSize = 100;
   rowModelType = 'infinite';
-  constructor(private api: ApiServiceService) { }
+  defaultPageSize = 10;
+  constructor(private api: ApiServiceService) {   
+    
+  }
 
   ngOnInit(): void {
   }
@@ -34,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
   dataSource: IDatasource = {
     getRows: (params: IGetRowsParams) => {
-      console.log("Page Size" + this.paginationPageSize);
+      console.log("Page Size" + this.gridApi.paginationGetPageSize());
       
       this.api.getAllBooks(this.gridApi.paginationGetPageSize(), this.gridApi.paginationGetCurrentPage()).subscribe(response => {
 
@@ -45,9 +50,4 @@ export class DashboardComponent implements OnInit {
       })
     }
   }
-
-  onPaginationChanged(params: any) {
-    
-  }
-
 }
