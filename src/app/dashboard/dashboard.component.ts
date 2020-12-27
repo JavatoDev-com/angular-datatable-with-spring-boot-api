@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IDatasource, IGetRowsParams } from 'ag-grid-community';
 import { ApiServiceService } from '../api-service.service';
+import { ImageFormatterComponent } from '../ImageFormatterComponent';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +16,8 @@ export class DashboardComponent implements OnInit {
   columnDefs = [
     { field: 'name', sortable: true, filter: true , flex: 1, minWidth: 100},
     { field: 'isbn', sortable: true, filter: true , flex: 1, minWidth: 100},
-    { field: 'imageUrl' , flex: 1, minWidth: 100, headerName: 'Image'},
-    { valueGetter: this.nameParser , flex: 1, minWidth: 100, headerName: 'Author'}
+    { valueGetter: this.nameParser , flex: 1, minWidth: 100, headerName: 'Author'},
+    { field: 'imageUrl' , autoHeight: true, flex: 1, minWidth: 100, headerName: 'Image', cellRendererFramework: ImageFormatterComponent},
   ];
 
   rowData = [];
