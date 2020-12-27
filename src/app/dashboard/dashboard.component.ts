@@ -10,44 +10,49 @@ import { ApiServiceService } from '../api-service.service';
 export class DashboardComponent implements OnInit {
 
   private gridApi: any;
-  private gridColumnApi: any;
-  
+  private gridColumnApi: any;  
 
   columnDefs = [
-    { field: 'id', sortable: true, filter: true, flex: 1, minWidth: 100},
     { field: 'name', sortable: true, filter: true , flex: 1, minWidth: 100},
     { field: 'isbn', sortable: true, filter: true , flex: 1, minWidth: 100},
-    { field: 'imageUrl', width: '500' , flex: 1, minWidth: 100}
+    { field: 'imageUrl' , flex: 1, minWidth: 100, headerName: 'Image'},
+    { valueGetter: this.nameParser , flex: 1, minWidth: 100, headerName: 'Author'}
   ];
 
   rowData = [];
   rowModelType = 'infinite';
   defaultPageSize = 10;
-  constructor(private api: ApiServiceService) {   
-    
-  }
+  
+  constructor(private api: ApiServiceService) {}
 
   ngOnInit(): void {
   }
 
   onGridReady(params: any) {
-    console.log("Reading Data");
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.setDatasource(this.dataSource);
   }
 
   dataSource: IDatasource = {
-    getRows: (params: IGetRowsParams) => {
-      console.log("Page Size" + this.gridApi.paginationGetPageSize());
-      
+    getRows: (params: IGetRowsParams) => {      
       this.api.getAllBooks(this.gridApi.paginationGetPageSize(), this.gridApi.paginationGetCurrentPage()).subscribe(response => {
-
         params.successCallback(
           response.bookList, response.numberOfItems
         );
-
       })
     }
   }
+
+  onPageSizeChanged(event: any) {
+    this.gridApi.paginationSetPageSize(Number(event.target.value));
+  }
+
+  nameParser(params:any) {
+    if (params.data != null) {
+      return params.data.author.firstName+" "+params.data.author.lastName;
+    }
+    return "";
+  }
+
 }
